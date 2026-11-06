@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Corridor Investment Diagnostic – South Hyderabad</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:#0B132B;color:#F8FAFC;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.card{background:#F8FAFC;color:#0B132B}
+.opt{transition:all .2s}.opt:hover{border-color:#10B981;transform:translateY(-1px)}
+.opt.sel{border-color:#10B981;background:#ecfdf5;box-shadow:0 0 0 2px #10B98133}
+.step{animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.pulse{animation:p 1.2s infinite}@keyframes p{50%{opacity:.4}}
+</style>
+</head>
+<body>
+<header class="relative overflow-hidden" style="background:linear-gradient(160deg,#0B132B,#1C2541)">
+  <div class="max-w-4xl mx-auto px-5 py-16 sm:py-24 text-center">
+    <p class="text-xs tracking-widest uppercase" style="color:#F59E0B">Shamshabad · Adibatla · Srisailam Hwy · Future City · NH-44</p>
+    <h1 class="mt-4 text-3xl sm:text-5xl font-bold leading-tight">Discover Your Ideal Investment Strategy in <span style="color:#10B981">South Hyderabad</span></h1>
+    <p class="mt-5 text-slate-300 max-w-2xl mx-auto">Take our 60-second Corridor Diagnostic to match your budget, timeline, and financing needs with 100% verified, legal-compliant opportunities.</p>
+    <div class="mt-6 flex flex-wrap justify-center gap-2 text-xs">
+      <span class="px-3 py-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10">✓ 100% HMDA / DTCP Approved</span>
+      <span class="px-3 py-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10">✓ TS-RERA Compliant</span>
+      <span class="px-3 py-1.5 rounded-full border border-amber-500/40 bg-amber-500/10">✓ Zero-Lien Title Guarantee</span>
+    </div>
+    <a href="#wizard" class="inline-block mt-8 px-7 py-3.5 rounded-lg font-semibold text-[#0B132B]" style="background:#F59E0B">Start Asset Matcher →</a>
+  </div>
+</header>
+
+<main id="wizard" class="max-w-2xl mx-auto px-4 py-12">
+  <div class="card rounded-2xl p-5 sm:p-8 shadow-2xl">
+    <div id="app"></div>
+  </div>
+  <p class="text-center text-xs text-slate-400 mt-4">Indicative advisory output. Final inventory, pricing and approvals are confirmed during consultation.</p>
+</main>
+
+<script>
+const STEPS=[
+ {k:'budget',t:'Budget Allocation',o:[['₹20L – ₹30L','Entry-level plots / Peripheral DTCP layouts'],['₹30L – ₹45L','Mid-tier DTCP & HMDA layouts'],['₹45L – ₹60L','Prime HMDA gated plots'],['₹60L – ₹1 Crore','Premium villa plots & high-growth nodes'],['₹1 Crore & Above','Highway commercial frontage / Large villa estates']]},
+ {k:'fund',t:'Funding & Capital Structure',note:'Highlighting pre-approved bank-loan layouts for loan seekers.',o:[['Self-Funding','Outright cash / Liquid capital deployment'],['Loan Required','Seeking bank financing & mortgage pre-approval']]},
+ {k:'hold',t:'Investment Horizon',o:[['1 – 3 Years','Short-term momentum / Early exit'],['3 – 5 Years','Medium-term appreciation cycle'],['5 – 10 Years','Long-term structural wealth building']]},
+ {k:'goal',t:'Primary Objective & End-Use',o:[['Capital Growth','Focus on land price appreciation'],['End-User Villa Housing','Plan to build a home within 3–5 years'],['Commercial / Rental Yield','NH-44 frontage / Industrial demand'],['Wealth Preservation & Land Banking','Long-term generational asset']]},
+ {k:'loc',t:'Location & Corridor Preference',o:[['Shamshabad Airport Belt','Airport expansion, Logistics, Rental demand'],['Adibatla – Tukkuguda – Maheshwaram','Aerospace SEZ, IT jobs, ORR access'],['Srisailam Highway (Kandukur – Kadthal)','Residential growth, Krishna water, Future City edge'],['Bharat Future City & Mucherla','AI City, Health City, High-upside mega-project'],['Sagar Road Belt (Ibrahimpatnam – Yacharam)','Affordable entry, Future City link road'],['NH-44 Industrial Corridor (Shadnagar – Jadcherla)','Data centres, Pharma, Industrial demand'],['Advisory Recommended','Suggest the best fit across all of South Hyderabad']]}
+];
+const CORR={
+ A:{n:'Shamshabad Airport Belt',drivers:['Airport expansion and logistics activity anchor steady employment and rental demand','Direct ORR and airport access supports strong resale liquidity','More mature than outer nodes, so suited to shorter holds and rental income'],risk:'Entry prices are higher than outer corridors, so appreciation may be steadier than explosive.'},
+ D:{n:'Adibatla–Tukkuguda–Maheshwaram',drivers:['Aerospace SEZ and IT occupiers create a ready pool of end-user buyers','ORR exit connectivity to the airport and Financial District','Shift from industrial address to residential township is under way'],risk:'Schools, hospitals and retail are still filling in; check social infrastructure near the layout.'},
+ H:{n:'Srisailam Highway (Kandukur–Kadthal)',drivers:['Four-lane connectivity from ORR and Krishna water supply support livability','Sits on the edge of Bharat Future City and the proposed Regional Ring Road','Many layouts and villa projects are launching, giving good choice at mid budgets'],risk:'Fast supply growth means layout selection matters; stick to approved, clear-title projects.'},
+ F:{n:'Bharat Future City & Mucherla',drivers:['Planned under FCDA with AI City and Health City components','Early-stage pricing suits patient, long-horizon capital','Planned east–west road to link Srisailam Highway with Sagar Road'],risk:'Returns depend on project execution timelines; best for 5+ year horizons.'},
+ G:{n:'Sagar Road Belt (Ibrahimpatnam–Yacharam)',drivers:['Lower entry prices than the Srisailam and airport belts','Planned link road toward Future City improves cross-corridor access','Suited to land banking and early-stage layouts'],risk:'Infrastructure is still being built out; liquidity is lower in the short term.'},
+ N:{n:'NH-44 Industrial Corridor (Shadnagar–Jadcherla)',drivers:['Data-centre, pharma and industrial demand supports workforce housing and warehousing','Highway frontage plots suit commercial and rental use','Entry prices are generally below the inner southern belts'],risk:'Farther from the city core; weigh commute and exit liquidity.'}
+};
+const ASSET=['DTCP Peripheral Plot','DTCP / HMDA Layout','HMDA Gated Layout','Premium Villa Plot','Highway Commercial Frontage'];
+const BUD=['₹20–30L','₹30–45L','₹45–60L','₹60L–1Cr','₹1Cr+'];
+const SB_URL='https://YOUR-PROJECT.supabase.co';
+const SB_KEY='YOUR_ANON_PUBLIC_KEY';
+let isNri=false;
+let s=0,a={},root=document.getElementById('app'),result=null;
+
+function pick(){
+ const [b,f,h,g,l]=STEPS.map(x=>a[x.k]);const K=['A','D','H','F','G','N'];let c;
+ if(l<6)c=K[l];
+ else if(g===3||h===2&&g!==2)c=b<=1?'G':'F';
+ else if(g===2)c=b>=3?'A':'N';
+ else if(g===1)c=(b<=1||h>=1)?'H':'D';
+ else c=h===0?'D':h===1?'H':'F';
+ const fit={A:g===2||h===0,D:g<=1&&h<=1,H:h===1||g===1,F:h===2||g===3,G:b<=1||g===3,N:g===2||b<=1}[c];
+ let sc=80+(l<6?6:4)+(fit?6:0)+(b>=1&&b<=3?3:0)+(f===1&&b<=2?2:0);
+ let asset=ASSET[b];if(g===2&&b>=3)asset=ASSET[4];if(g===1&&b===3)asset='Premium Villa Plot';
+ return{c:CORR[c],asset,score:Math.min(sc,97),loan:f===1,b};
+}
+function render(){
+ if(s>=STEPS.length){return result?renderResult():renderLoading();}
+ const st=STEPS[s],pct=Math.round(s/STEPS.length*100);
+ root.innerHTML=`<div class="flex justify-between text-xs text-slate-500 mb-2"><span>Step ${s+1} of 5</span><span>${pct}% complete</span></div>
+ <div class="h-2 rounded-full bg-slate-200 overflow-hidden mb-6"><div class="h-full rounded-full transition-all duration-500" style="width:${pct+20}%;background:#10B981"></div></div>
+ <div class="step"><h2 class="text-xl sm:text-2xl font-bold mb-1">${st.t}</h2>
+ ${st.note?`<span class="inline-block text-xs px-2.5 py-1 rounded-full my-2" style="background:#F59E0B22;color:#92600a">🏦 ${st.note}</span>`:''}
+ <div class="mt-4 grid gap-3" role="radiogroup">${st.o.map((o,i)=>`<button role="radio" aria-checked="${a[st.k]===i}" data-i="${i}" class="opt ${a[st.k]===i?'sel':''} text-left w-full border-2 border-slate-200 bg-white rounded-xl p-4 flex items-center gap-3">
+  <span class="w-5 h-5 shrink-0 rounded-full border-2 ${a[st.k]===i?'border-emerald-500':'border-slate-300'} flex items-center justify-center">${a[st.k]===i?'<span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>':''}</span>
+  <span><span class="block font-semibold">${o[0]}</span><span class="block text-sm text-slate-500">${o[1]}</span></span></button>`).join('')}</div>
+ <div class="flex justify-between mt-6"><button id="back" class="text-sm text-slate-500 ${s?'':'invisible'}">← Back</button>
+ <button id="next" class="px-6 py-2.5 rounded-lg font-semibold text-white disabled:opacity-40" style="background:#0B132B" ${a[st.k]===undefined?'disabled':''}>${s===4?'Generate Strategy':'Continue →'}</button></div></div>`;
+ root.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{a[st.k]=+b.dataset.i;render();});
+ root.querySelector('#back').onclick=()=>{s--;render();};
+ root.querySelector('#next').onclick=()=>{s++;if(s>=STEPS.length){result=null;render();setTimeout(()=>{result=pick();render();},2200);}else render();};
+}
+function renderLoading(){
+ root.innerHTML=`<div class="py-16 text-center step"><div class="mx-auto w-14 h-14 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin"></div>
+ <p class="mt-6 font-semibold pulse">Analyzing South Hyderabad Corridor Data...</p><p class="text-sm text-slate-500 mt-1">Matching inventory to your profile</p></div>`;
+}
+function renderResult(){
+ const r=result,loanTxt=r.loan?'Eligible – pre-approved bank-loan layouts shortlisted':'Not required – outright purchase, faster registration';
+ const chk=['HMDA / DTCP layout approval verified','TS-RERA registration status checked','Title clearance & zero-lien search completed'];
+ root.innerHTML=`<div class="step">
+ <div class="rounded-xl p-5 text-white" style="background:linear-gradient(135deg,#0B132B,#1C2541)">
+  <p class="text-xs uppercase tracking-widest" style="color:#F59E0B">Your South Hyderabad Strategy</p>
+  <h2 class="text-2xl font-bold mt-1"><span style="color:#10B981">${r.score}% Match:</span> ${r.c.n} ${r.asset}</h2></div>
+ <div class="grid sm:grid-cols-2 gap-3 mt-4 text-sm">
+  <div class="bg-white border border-slate-200 rounded-lg p-3"><p class="text-slate-500 text-xs">Recommended Corridor Node</p><p class="font-semibold">${r.c.n}</p></div>
+  <div class="bg-white border border-slate-200 rounded-lg p-3"><p class="text-slate-500 text-xs">Asset Class Fit</p><p class="font-semibold">${r.asset}</p></div>
+  <div class="bg-white border border-slate-200 rounded-lg p-3"><p class="text-slate-500 text-xs">Budget Bracket</p><p class="font-semibold">${BUD[r.b]} – matched</p></div>
+  <div class="bg-white border border-slate-200 rounded-lg p-3"><p class="text-slate-500 text-xs">Bank Loan Eligibility</p><p class="font-semibold" style="color:#059669">${loanTxt}</p></div></div>
+ <h3 class="font-semibold mt-5 mb-2">Growth Drivers</h3>
+ <ul class="space-y-2 text-sm">${r.c.drivers.map(d=>`<li class="flex gap-2"><span style="color:#10B981">▲</span>${d}</li>`).join('')}</ul>
+ <p class="mt-3 text-sm rounded-lg bg-amber-50 border border-amber-200 p-3"><b>Consider:</b> ${r.c.risk}</p>
+ <div class="mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-4"><h3 class="font-semibold mb-2">🛡 Legal & Compliance Shield</h3>
+  ${chk.map(c=>`<p class="text-sm flex gap-2 py-0.5"><span class="text-emerald-600 font-bold">✓</span>${c}</p>`).join('')}</div>
+ <form id="lead" class="mt-6 space-y-3 border-t border-slate-200 pt-5">
+  <h3 class="font-semibold">Book Your Consultation</h3>
+  <input required name="n" placeholder="Full Name" class="w-full border border-slate-300 rounded-lg p-3 text-sm bg-white">
+  <input required name="p" type="tel" inputmode="tel" placeholder="Phone Number" class="w-full border border-slate-300 rounded-lg p-3 text-sm bg-white">
+  <label class="flex items-center gap-2 text-sm text-slate-600"><input type="checkbox" checked> Contact me on WhatsApp</label>
+  <input required name="e" type="email" placeholder="Email Address" class="w-full border border-slate-300 rounded-lg p-3 text-sm bg-white">
+  <div class="flex items-center justify-between text-sm"><span>Are you an NRI?</span>
+   <span id="nri" class="inline-flex rounded-lg border border-slate-300 overflow-hidden"><button type="button" data-v="0" class="px-4 py-1.5 text-white" style="background:#0B132B">No</button><button type="button" data-v="1" class="px-4 py-1.5 bg-white">Yes</button></span></div>
+  <button class="w-full py-3.5 rounded-lg font-semibold text-[#0B132B]" style="background:#F59E0B">Unlock Matching Approved Projects & Schedule a Consultation</button>
+  <button type="button" id="redo" class="w-full text-xs text-slate-500">Retake diagnostic</button></form></div>`;
+ root.querySelectorAll('#nri button').forEach(b=>b.onclick=()=>{isNri=b.dataset.v==='1';root.querySelectorAll('#nri button').forEach(x=>{const on=x===b;x.style.background=on?'#0B132B':'#fff';x.style.color=on?'#fff':'#0B132B';});});
+ root.querySelector('#redo').onclick=()=>{s=0;a={};result=null;render();};
+ root.querySelector('#lead').onsubmit=async e=>{
+ e.preventDefault();
+ const f=e.target,btn=f.querySelector('button:not([type])'),old=btn.textContent;
+ btn.disabled=true;btn.textContent='Submitting...';
+ const body={full_name:f.n.value.trim(),phone:f.p.value.trim(),whatsapp:f.querySelector('input[type=checkbox]').checked,email:f.e.value.trim(),is_nri:isNri,
+  budget:STEPS[0].o[a.budget??a[STEPS[0].k]][0],funding:STEPS[1].o[a[STEPS[1].k]][0],horizon:STEPS[2].o[a[STEPS[2].k]][0],objective:STEPS[3].o[a[STEPS[3].k]][0],corridor_pref:STEPS[4].o[a[STEPS[4].k]][0],
+  recommended:r.c.n+' '+r.asset,match_score:r.score};
+ try{
+  const res=await fetch(SB_URL+'/rest/v1/leads',{method:'POST',headers:{'Content-Type':'application/json',apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,Prefer:'return=minimal'},body:JSON.stringify(body)});
+  if(!res.ok)throw new Error(res.status);
+  root.innerHTML=`<div class="py-14 text-center step"><div class="text-5xl">✅</div><h2 class="text-xl font-bold mt-3">Thank you!</h2><p class="text-slate-600 mt-2 text-sm">An advisor will contact you shortly with matching approved projects in ${r.c.n}.</p></div>`;
+ }catch(err){btn.disabled=false;btn.textContent=old;alert('Could not submit. Please try again.');}
+};
+
+}
+render();
+</script>
+</body>
+</html>
